@@ -4,9 +4,15 @@ import java.awt.event.*;
 
 public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseListener,KeyListener {
 	public static void main(String[] args){
-		new nickKumarIsSexy().run();
+		DisplayMode dm = new DisplayMode(1920,1080,60, DisplayMode.REFRESH_RATE_UNKNOWN);
+		Images i = new Images();
+		i.run(dm);
 	}
 	private String mess = "";
+	private Image ball;
+	private Image basket;
+	private boolean loaded;
+	private Screen s;
 	
 	public void init(){
 		super.init();
@@ -19,6 +25,25 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseLi
 		w.addMouseMotionListener(this);
 	}
 	
+	//run method
+		public void run(DisplayMode dm){
+			setBackground(Color.WHITE);
+			setForeground(Color.BLACK);
+			setFont(new Font("Arial", Font.PLAIN, 24));
+			loaded = false;
+			
+			s = new Screen();
+			try{
+				s.setFullScreen(dm, this);
+				loadpics();
+				try{
+					Thread.sleep(5000);
+				}catch(Exception ex){}	
+			}finally{
+				s.restoreScreen();
+			}
+		}
+	
 	public void keyPressed(KeyEvent e){
 		int keyCode = e.getKeyCode();
 		if(keyCode ==KeyEvent.VK_ESCAPE){
@@ -30,9 +55,6 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseLi
 	}
 	public synchronized void draw(Graphics2D g){
 		Window w = s.getFullScreenWindow();
-		g.setColor(w.getBackground());
-		g.fillRect(0,0,s.getWidth(), s.getHeight());
-		g.setColor(w.getForeground());
 		g.drawString(mess, 40, 50);
 	}
 	
@@ -43,9 +65,16 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseLi
 	public void mouseEntered(MouseEvent e){}
 	public void mouseExited(MouseEvent e){}
 	
+	public void loadpics(){
+			ball = new ImageIcon("C:\\Users\\kuman\\OneDrive\\Documents\\GitHub\\Basketball\\Basketball\\src\\Basketball.png").getImage();
+			basket = new ImageIcon("C:\\Users\\kuman\\OneDrive\\Documents\\GitHub\\Basketball\\Basketball\\src\\Basket.png").getImage();
+			loaded = true;
+			repaint();
+		}
+	
 	public void mouseMoved(MouseEvent e){
-		mess="you are moving the mouse";
-	}
+		
+}
 	
 	public void mouseDragged(MouseEvent e){
 		mess ="you are dragging the mouse";

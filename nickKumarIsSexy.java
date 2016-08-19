@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseListener,KeyListener {
+public class nickKumarIsSexy extends Core implements MouseMotionListener, MouseListener, KeyListener {
 	public static void main(String[] args){
 		new nickKumarIsSexy().run();
 	}
@@ -24,7 +24,7 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseLi
 		if(keyCode ==KeyEvent.VK_ESCAPE){
 			stop();
 		}else{
-			mess = "poooooo :"+ KeyEvent.getKeyText(keyCode);
+			mess = "You pressed the :"+ KeyEvent.getKeyText(keyCode);
 			e.consume();
 		}
 	}
@@ -33,7 +33,7 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseLi
 		g.setColor(w.getBackground());
 		g.fillRect(0,0,s.getWidth(), s.getHeight());
 		g.setColor(w.getForeground());
-		g.drawString(mess, 40, 50);
+		g.drawString(mess, 10, 50);
 	}
 	
 	public void mousePressed(MouseEvent e){
@@ -49,5 +49,24 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener,MouseLi
 	
 	public void mouseDragged(MouseEvent e){
 		mess ="you are dragging the mouse";
+	}
+
+	@Override
+	public void keyReleased(KeyEvent k) {
+		mess ="Key released";
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent k) {
+
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent k) {
+		mess ="Mouse Released";
+
+		
 	}
 }

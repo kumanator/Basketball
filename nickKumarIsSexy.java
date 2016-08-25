@@ -1,97 +1,38 @@
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.*;
 
-/*public class nickKumarIsSexy extends Core implements MouseMotionListener, MouseListener, KeyListener {
-	public static void main(String[] args){
-		new nickKumarIsSexy().run();
-	}
-	private String mess = "";
-	
-	
-	public void init(){
-		super.init();
-		Window w = s.getFullScreenWindow();
-		w.setFocusTraversalKeysEnabled(false);
-		w.addKeyListener(this);
-		mess ="press escape to exit";
-		w.addMouseListener(this);
-		w.addKeyListener(this);
-		w.addMouseMotionListener(this);
-	}
-	
-	public void keyPressed(KeyEvent e){
-		int keyCode = e.getKeyCode();
-		if(keyCode ==KeyEvent.VK_ESCAPE){
-			stop();
-		}else{
-			mess = "You pressed the :"+ KeyEvent.getKeyText(keyCode);
-			e.consume();
-		}
-	}
-	public synchronized void draw(Graphics2D g){
-		Window w = s.getFullScreenWindow();
-		g.setColor(w.getBackground());
-		g.fillRect(0,0,s.getWidth(), s.getHeight());
-		g.setColor(w.getForeground());
-		g.drawString(mess, 10, 50);
-	}
-	
-	public void mousePressed(MouseEvent e){
-		mess = "you pressed the mouse";
-	}
-	public void mouseClicked(MouseEvent e){}
-	public void mouseEntered(MouseEvent e){}
-	public void mouseExited(MouseEvent e){}
-	
-	public void mouseMoved(MouseEvent e){
-		mess="you are moving the mouse";
-	}
-	
-	public void mouseDragged(MouseEvent e){
-		mess ="you are dragging the mouse";
-	}
 
-	public void keyReleased(KeyEvent k) {
-		mess ="Key released";
-		
-	}
-
-	public void keyTyped(KeyEvent k) {
-		
-	}
-
-	public void mouseReleased(MouseEvent k) {
-		mess ="Mouse Released";
-		
-	}
-}*/
-
-public class nickKumarIsSexy extends Core implements MouseMotionListener, MouseListener, KeyListener {
+public class nickKumarIsSexy extends JFrame implements MouseListener, MouseMotionListener, KeyListener{
 	public static void main(String[] args) {
 		
-		DisplayMode dm = new DisplayMode(800,600,16, DisplayMode.REFRESH_RATE_UNKNOWN);
+		DisplayMode dm = new DisplayMode(1920,1080,60, DisplayMode.REFRESH_RATE_UNKNOWN);
 		nickKumarIsSexy i = new nickKumarIsSexy();
 		i.run(dm);
+		
 	}
+	
+	private int score = 0;
 	private String mess = "";
-	private Screen s;
 	private Image ball;
 	private Image basket;
 	private boolean loaded;
-	
+	private static int x = 0;
+	private static int y = 0;
+	private static int z = 0;
+	private int mouseX = 0, mouseY = 0;
+	private boolean running;
+	protected Screen s;
+	private boolean mouseClicked;
 	
 	//run method
 	public void run(DisplayMode dm){
 		setBackground(Color.WHITE);
-		setForeground(Color.WHITE);
-		setFocusTraversalKeysEnabled(false);
-		addMouseListener(this);
-		addKeyListener(this);
-		addMouseMotionListener(this);
-		
+		setForeground(Color.BLACK);
 		setFont(new Font("Arial", Font.PLAIN, 24));
 		loaded = false;
+		
+		s = new Screen();
 		try{
 			s.setFullScreen(dm, this);
 			loadpics();
@@ -100,13 +41,13 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener, MouseL
 			}catch(Exception ex){}	
 		}finally{
 			s.restoreScreen();
+			}
 		}
-	}
 	
 	//loads pictures
 	public void loadpics(){
-		ball = new ImageIcon("Libraries\\Documents\\Basket.png").getImage();
-		basket = new ImageIcon("Libraries\\Documents\\Basketball.png").getImage();
+		ball = new ImageIcon("C:\\Users\\kuman\\OneDrive\\Documents\\GitHub\\Basketball\\Basketball\\src\\Basketball.png").getImage();
+		basket = new ImageIcon("C:\\Users\\kuman\\OneDrive\\Documents\\GitHub\\Basketball\\Basketball\\src\\Basket.png").getImage();
 		loaded = true;
 		repaint();
 	}
@@ -121,45 +62,44 @@ public class nickKumarIsSexy extends Core implements MouseMotionListener, MouseL
 			g.drawImage(basket,550,-100,null);
 			}
 	}
+@Override
+	public void mouseDragged(MouseEvent e) {
+		mouseX = e.getX();
+	    mouseY = e.getY();
+	    repaint();
+		
+	}
 
-	@Override
-	public void draw(Graphics2D g) {
-		g.drawString(mess, 10, 50);
+	public void mouseMoved(MouseEvent e) {}
+
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	
+	public void drawScore(Graphics2D s){
+		if(mouseClicked == true)
+		s.drawString(mess, 40, 50);
+		mess = "Score: +score"; score++;
+		
+	}
+
+	public void stop(){
+		running = false;
 	}
 	
-	public void keyPressed(KeyEvent e){
+	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
 		if(keyCode ==KeyEvent.VK_ESCAPE){
 			stop();
 		}else{
-			mess = "You pressed the :"+ KeyEvent.getKeyText(keyCode);
+			mess = "poooooo :"+ KeyEvent.getKeyText(keyCode);
 			e.consume();
 		}
 	}
-	public void mousePressed(MouseEvent e){
-		mess = "you pressed the mouse";
-	}
-	public void mouseClicked(MouseEvent e){}
-	public void mouseEntered(MouseEvent e){}
-	public void mouseExited(MouseEvent e){}
-	
-	public void mouseMoved(MouseEvent e){
-		mess="you are moving the mouse";
-	}
-	
-	public void mouseDragged(MouseEvent e){
-		mess ="you are dragging the mouse";
-	}
-
-	public void keyReleased(KeyEvent k) {
-		mess ="Key released";
-		
-	}
-
-	public void keyTyped(KeyEvent k) {}
-
-	public void mouseReleased(MouseEvent k) {
-		mess ="Mouse Released";
-		
-	}
+	public void keyReleased(KeyEvent e) {}
+	public void keyTyped(KeyEvent e) {}
 }
